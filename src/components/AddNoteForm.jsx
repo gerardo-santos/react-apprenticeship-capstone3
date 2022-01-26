@@ -18,7 +18,7 @@ const AddNoteForm = ({ toggleForm }) => {
     if (!noteText || !color) return;
     const id = Date.now();
     const newNote = { id, noteText, color };
-    dispatch({ type: 'ADD_NOTE', payload: newNote });
+    dispatch({ type: 'CREATE_NOTE', payload: newNote });
     toggleForm();
   };
 

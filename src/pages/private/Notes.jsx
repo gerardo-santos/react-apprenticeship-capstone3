@@ -15,6 +15,8 @@ const Notes = () => {
   const toggleForm = () => {
     setShowAddNoteForm(!showAddNoteForm);
   };
+  const alertMessage =
+    'There are no notes; please create a new one using the note creation form.';
   return (
     <>
       <PageTitle>Notes</PageTitle>
@@ -25,7 +27,11 @@ const Notes = () => {
         ) : (
           <Button onClick={toggleForm}>Create a note</Button>
         )}
-        {notes.length > 0 ? <NoteCardList /> : <NoNotesAlert />}
+        {notes.length > 0 ? (
+          <NoteCardList />
+        ) : (
+          <NoNotesAlert alertMessage={alertMessage} />
+        )}
       </PageContainer>
     </>
   );

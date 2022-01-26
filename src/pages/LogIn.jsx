@@ -1,4 +1,5 @@
-import { useState } from 'react';
+import { useState, useContext } from 'react';
+import { GlobalContext } from '../context/GlobalContext';
 import { useNavigate } from 'react-router-dom';
 import { PageTitle } from '../components/styles/PageTitle.styled';
 import { PageContainer } from '../components/styles/PageContainer.styled';
@@ -8,6 +9,7 @@ import Button from 'react-bootstrap/Button';
 import Alert from 'react-bootstrap/Alert';
 
 const LogIn = () => {
+  const { dispatch } = useContext(GlobalContext);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [showError, setShowError] = useState(false);
@@ -22,6 +24,7 @@ const LogIn = () => {
       setShowError(true);
       return;
     }
+    dispatch({ type: 'LOG_IN' });
     setShowError(false);
     setErrorMessage('');
     navigate('/');

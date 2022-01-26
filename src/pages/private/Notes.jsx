@@ -1,5 +1,13 @@
+import { PageTitle } from '../../components/styles/PageTitle.styled';
+import { PageContainer } from '../../components/styles/PageContainer.styled';
+
 const Notes = () => {
-  return <div>notes</div>;
+  return (
+    <>
+      <PageTitle>Notes</PageTitle>
+      <PageContainer></PageContainer>
+    </>
+  );
 };
 
 export default Notes;

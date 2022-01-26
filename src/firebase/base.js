@@ -14,24 +14,26 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 
-export const logInFirebase = (email, password) => {
+export const logInFirebase = async (email, password) => {
   return signInWithEmailAndPassword(auth, email, password)
-    .then((userCredential) => {
-      const user = userCredential.user;
-      return user;
+    .then(() => {
+      const responseObject = { error: null };
+      return responseObject;
     })
     .catch((error) => {
-      const message = error.message;
-      return message;
+      const responseObject = { error: error.message };
+      return responseObject;
     });
 };
 
-export const signOutFirebase = () => {
+export const signOutFirebase = async () => {
   return signOut(auth)
     .then(() => {
-      return auth;
+      const responseObject = { error: null };
+      return responseObject;
     })
     .catch((error) => {
-      return error;
+      const responseObject = { error: error.message };
+      return responseObject;
     });
 };

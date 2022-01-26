@@ -7,7 +7,10 @@ import Nav from 'react-bootstrap/Nav';
 const NavBar = () => {
   const handleSignOut = async () => {
     const response = await signOutFirebase();
-    console.log(response);
+    if (response.error) {
+      alert(response.error);
+      return;
+    }
   };
   return (
     <Navbar bg="warning" expand="false">

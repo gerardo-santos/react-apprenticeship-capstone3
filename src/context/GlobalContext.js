@@ -7,7 +7,6 @@ export const GlobalContext = createContext();
 
 const initialDefaultState = {
   query: '',
-  darkMode: false,
   isAuthenticated: false,
   notes: [],
   archives: [],

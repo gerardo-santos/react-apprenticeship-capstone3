@@ -1,3 +1,5 @@
+import { useState, useContext } from 'react';
+import { GlobalContext } from '../context/GlobalContext';
 import { AddNoteFormContainer } from '../components/styles/AddNoteFormContainer.styled';
 import { FormTitle } from '../components/styles/FormTitle.styled';
 import { FormLabel } from '../components/styles/FormLabel.styled';
@@ -7,17 +9,34 @@ import { Button } from './styles/Button.styled';
 import PropTypes from 'prop-types';
 
 const AddNoteForm = ({ toggleForm }) => {
+  const { dispatch } = useContext(GlobalContext);
+  const [noteText, setNoteText] = useState('');
+  const [color, setColor] = useState('#ffc107');
+
   const handleSubmit = (event) => {
     event.preventDefault();
+    if (!noteText || !color) return;
+    const id = Date.now();
+    const newNote = { id, noteText, color };
+    dispatch({ type: 'ADD_NOTE', payload: newNote });
+    toggleForm();
   };
+
   return (
     <AddNoteFormContainer onSubmit={handleSubmit}>
       <FormTitle>Add a Note</FormTitle>
       <FormLabel>Note Content</FormLabel>
-      <NoteInput />
+      <NoteInput
+        value={noteText}
+        onChange={(event) => setNoteText(event.target.value)}
+      />
       <FormLabel>Color</FormLabel>
       <br />
-      <ColorInput type="color" />
+      <ColorInput
+        type="color"
+        value={color}
+        onChange={(event) => setColor(event.target.value)}
+      />
       <br />
       <Button cancel="true" onClick={toggleForm} type="button">
         Cancel

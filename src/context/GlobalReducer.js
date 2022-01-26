@@ -4,6 +4,8 @@ export const globalReducer = (state, action) => {
       return { ...state, isAuthenticated: true };
     case 'SIGN_OUT':
       return { ...state, isAuthenticated: false };
+    case 'ADD_NOTE':
+      return { ...state, notes: [...state.notes, action.payload] };
     default:
       return state;
   }

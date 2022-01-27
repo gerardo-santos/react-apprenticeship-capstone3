@@ -5,9 +5,10 @@ import NoteCard from './NoteCard';
 import NoNotesAlert from './NoNotesAlert';
 import PropTypes from 'prop-types';
 
-const NoteCardList = ({ archivesPage }) => {
+const NoteCardList = ({ archivesPage, handleShowEditModal }) => {
   const { notes, archives, query } = useContext(GlobalContext);
   const [filteredNotes, setFilteredNotes] = useState([]);
+
   useEffect(() => {
     setFilteredNotes(
       notes.filter((note) =>
@@ -15,6 +16,7 @@ const NoteCardList = ({ archivesPage }) => {
       )
     );
   }, [query, notes]);
+
   const filteredNotesOrArchivesArray = archivesPage ? archives : filteredNotes;
   const alertMessage = 'There are no match results. Try another search.';
 
@@ -27,6 +29,7 @@ const NoteCardList = ({ archivesPage }) => {
           noteText={note.noteText}
           color={note.color}
           archivesPage={archivesPage}
+          handleShowEditModal={handleShowEditModal}
         />
       ))}
       {!archivesPage && query.length > 0 && filteredNotes.length === 0 && (
@@ -35,8 +38,10 @@ const NoteCardList = ({ archivesPage }) => {
     </CardListContainer>
   );
 };
+
 NoteCardList.propTypes = {
   archivesPage: PropTypes.bool,
+  handleShowEditModal: PropTypes.func,
 };
 
 export default NoteCardList;

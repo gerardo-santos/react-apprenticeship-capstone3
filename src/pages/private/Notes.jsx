@@ -7,19 +7,37 @@ import SearchNote from '../../components/SearchNote';
 import AddNoteForm from '../../components/AddNoteForm';
 import NoNotesAlert from '../../components/NoNotesAlert';
 import NoteCardList from '../../components/NoteCardList';
+import EditModal from '../../components/EditModal';
 
 const Notes = () => {
-  const { notes } = useContext(GlobalContext);
+  const { notes, dispatch } = useContext(GlobalContext);
   const [showAddNoteForm, setShowAddNoteForm] = useState(false);
+  const [showEditModal, setShowEditModal] = useState(false);
 
   const toggleForm = () => {
     setShowAddNoteForm(!showAddNoteForm);
   };
+
+  const handleCloseEditModal = () => {
+    dispatch({ type: 'SELECT_NOTE_TO_EDIT', payload: {} });
+    setShowEditModal(false);
+  };
+
+  const handleShowEditModal = (noteToEdit) => {
+    dispatch({ type: 'SELECT_NOTE_TO_EDIT', payload: noteToEdit });
+    setShowEditModal(true);
+  };
+
   const alertMessage =
     'There are no notes; please create a new one using the note creation form.';
+
   return (
     <>
       <PageTitle>Notes</PageTitle>
+      <EditModal
+        show={showEditModal}
+        handleCloseEditModal={handleCloseEditModal}
+      />
       <PageContainer>
         <SearchNote />
         {showAddNoteForm ? (
@@ -28,7 +46,7 @@ const Notes = () => {
           <Button onClick={toggleForm}>Create a note</Button>
         )}
         {notes.length > 0 ? (
-          <NoteCardList />
+          <NoteCardList handleShowEditModal={handleShowEditModal} />
         ) : (
           <NoNotesAlert alertMessage={alertMessage} />
         )}

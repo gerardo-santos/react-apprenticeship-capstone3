@@ -5,8 +5,7 @@ export const Button = styled.button`
     cancel ? '#fff' : secondary ? secondary : '#ffc107'};
   border-radius: 4px;
   border-style: none;
-  border: 2px solid #ffc107
-    ${({ secondary }) => (secondary ? '#616161' : '#ffc107')};
+  border: 2px solid ${({ secondary }) => (secondary ? '#b8b8b8' : '#ffc107')};
   cursor: pointer;
   margin-right: 15px;
   outline: none;

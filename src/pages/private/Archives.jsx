@@ -7,7 +7,7 @@ import NoNotesAlert from '../../components/NoNotesAlert';
 
 const Archives = () => {
   const { archives } = useContext(GlobalContext);
-  const alertMessage = 'Notes have not been added to archives yet.';
+  const alertMessage = 'You do not have archived notes.';
   return (
     <>
       <PageTitle>Archives</PageTitle>

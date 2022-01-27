@@ -5,7 +5,13 @@ import { CardTextContainer } from './styles/CardTextContainer.styled';
 import { Button } from './styles/Button.styled';
 import PropTypes from 'prop-types';
 
-const NoteCard = ({ id, noteText, color, archivesPage }) => {
+const NoteCard = ({
+  id,
+  noteText,
+  color,
+  archivesPage,
+  handleShowEditModal,
+}) => {
   const { dispatch, notes, archives } = useContext(GlobalContext);
   const addNoteToArchives = () => {
     const newArchivedNote = { id, noteText, color };
@@ -31,6 +37,11 @@ const NoteCard = ({ id, noteText, color, archivesPage }) => {
     });
   };
 
+  const selectNoteToEdit = () => {
+    const noteToEdit = { id, noteText, color };
+    handleShowEditModal(noteToEdit);
+  };
+
   return (
     <NoteCardContainer color={color}>
       <CardTextContainer>{noteText}</CardTextContainer>
@@ -44,7 +55,9 @@ const NoteCard = ({ id, noteText, color, archivesPage }) => {
             <Button secondary="#bdbdbd" onClick={addNoteToArchives}>
               Archive
             </Button>
-            <Button secondary="#bdbdbd">Edit</Button>
+            <Button secondary="#bdbdbd" onClick={selectNoteToEdit}>
+              Edit
+            </Button>
           </>
         )}
       </div>
@@ -57,5 +70,6 @@ NoteCard.propTypes = {
   noteText: PropTypes.string,
   color: PropTypes.string,
   archivesPage: PropTypes.bool,
+  handleShowEditModal: PropTypes.func,
 };
 export default NoteCard;

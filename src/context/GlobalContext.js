@@ -10,6 +10,7 @@ const initialDefaultState = {
   isAuthenticated: false,
   notes: [],
   archives: [],
+  noteToEdit: {},
 };
 
 export const GlobalProvider = ({ children }) => {
@@ -19,9 +20,11 @@ export const GlobalProvider = ({ children }) => {
   } catch {
     retrievedState = null;
   }
+
   const initialState = retrievedState ?? initialDefaultState;
   const [state, dispatch] = useReducer(globalReducer, initialState);
   useLocalStorage(LOCAL_STORAGE_KEY, state);
+
   return (
     <GlobalContext.Provider
       value={{

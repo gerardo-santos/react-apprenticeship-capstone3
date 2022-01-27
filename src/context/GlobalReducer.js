@@ -12,6 +12,8 @@ export const globalReducer = (state, action) => {
       return { ...state, notes: [...action.payload] };
     case 'PERMANENTLY_DELETE_ARCHIVED_NOTE':
       return { ...state, archives: [...action.payload] };
+    case 'UPDATE_QUERY':
+      return { ...state, query: action.payload };
     default:
       return state;
   }

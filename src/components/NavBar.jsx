@@ -1,6 +1,7 @@
 import { useContext } from 'react';
 import { GlobalContext } from '../context/GlobalContext';
 import { signOutFirebase } from '../firebase/base';
+import { Link } from 'react-router-dom';
 import Navbar from 'react-bootstrap/Navbar';
 import Nav from 'react-bootstrap/Nav';
 import Container from 'react-bootstrap/Container';
@@ -19,7 +20,9 @@ const NavBar = () => {
   return (
     <Navbar bg="warning" expand="false">
       <Container>
-        <Navbar.Brand href="#home">My Notes App</Navbar.Brand>
+        <Navbar.Brand as={Link} to="/">
+          My Notes App
+        </Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="me-auto">

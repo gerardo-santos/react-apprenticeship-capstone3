@@ -1,31 +1,47 @@
-import { useContext } from 'react';
+import { useContext, useState, useEffect } from 'react';
 import { GlobalContext } from '../context/GlobalContext';
 import { CardListContainer } from './styles/CardListContainer.styled';
 import NoteCard from './NoteCard';
+import NoNotesAlert from './NoNotesAlert';
 import PropTypes from 'prop-types';
 
-const NoteCardList = ({ archivesPage }) => {
-  const { notes, archives } = useContext(GlobalContext);
-  let iterator = notes;
-  if (archivesPage) {
-    iterator = archives;
-  }
+const NoteCardList = ({ archivesPage, handleShowEditModal }) => {
+  const { notes, archives, query } = useContext(GlobalContext);
+  const [filteredNotes, setFilteredNotes] = useState([]);
+
+  useEffect(() => {
+    setFilteredNotes(
+      notes.filter((note) =>
+        note.noteText.toLowerCase().includes(query.toLowerCase())
+      )
+    );
+  }, [query, notes]);
+
+  const filteredNotesOrArchivesArray = archivesPage ? archives : filteredNotes;
+  const alertMessage = 'There are no match results. Try another search.';
+
   return (
     <CardListContainer>
-      {iterator.map((note) => (
+      {filteredNotesOrArchivesArray.map((note) => (
         <NoteCard
           key={note.id}
           id={note.id}
           noteText={note.noteText}
           color={note.color}
           archivesPage={archivesPage}
+          handleShowEditModal={handleShowEditModal}
         />
       ))}
+      {!archivesPage && query.length > 0 && filteredNotes.length === 0 && (
+        <NoNotesAlert alertMessage={alertMessage} />
+      )}
     </CardListContainer>
   );
 };
+
 NoteCardList.propTypes = {
   archivesPage: PropTypes.bool,
+  handleShowEditModal: PropTypes.func,
 };
 
 export default NoteCardList;

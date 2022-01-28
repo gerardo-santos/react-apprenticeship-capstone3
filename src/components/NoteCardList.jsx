@@ -5,7 +5,7 @@ import NoteCard from './NoteCard';
 import NoNotesAlert from './NoNotesAlert';
 import PropTypes from 'prop-types';
 
-const NoteCardList = ({ archivesPage, handleShowEditModal }) => {
+const NoteCardList = ({ archivesPage, handleShowEditModal, search }) => {
   const { notes, archives, query } = useContext(GlobalContext);
   const [filteredNotes, setFilteredNotes] = useState([]);
 
@@ -15,7 +15,7 @@ const NoteCardList = ({ archivesPage, handleShowEditModal }) => {
         note.noteText.toLowerCase().includes(query.toLowerCase())
       )
     );
-  }, [query, notes]);
+  }, [search, notes]);
 
   const filteredNotesOrArchivesArray = archivesPage ? archives : filteredNotes;
   const alertMessage = 'There are no match results. Try another search.';
@@ -42,6 +42,7 @@ const NoteCardList = ({ archivesPage, handleShowEditModal }) => {
 NoteCardList.propTypes = {
   archivesPage: PropTypes.bool,
   handleShowEditModal: PropTypes.func,
+  search: PropTypes.string,
 };
 
 export default NoteCardList;

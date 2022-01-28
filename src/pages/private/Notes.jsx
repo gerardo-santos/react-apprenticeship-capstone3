@@ -1,8 +1,9 @@
-import { useState, useContext } from 'react';
+import { useState, useContext, useRef } from 'react';
 import { GlobalContext } from '../../context/GlobalContext';
 import { PageTitle } from '../../components/styles/PageTitle.styled';
 import { PageContainer } from '../../components/styles/PageContainer.styled';
 import { Button } from '../../components/styles/Button.styled';
+import { debounce } from '../../utils/functions';
 import SearchNote from '../../components/SearchNote';
 import AddNoteForm from '../../components/AddNoteForm';
 import NoNotesAlert from '../../components/NoNotesAlert';
@@ -13,6 +14,17 @@ const Notes = () => {
   const { notes, dispatch } = useContext(GlobalContext);
   const [showAddNoteForm, setShowAddNoteForm] = useState(false);
   const [showEditModal, setShowEditModal] = useState(false);
+  const [search, setSearch] = useState('');
+  const debouncedFilterHandler = useRef(debounce(updateSearch, 300)).current;
+
+  function updateSearch(newQuery) {
+    setSearch(() => newQuery);
+  }
+
+  const debounceOnChange = (newQuery) => {
+    dispatch({ type: 'UPDATE_QUERY', payload: newQuery });
+    debouncedFilterHandler(newQuery);
+  };
 
   const toggleForm = () => {
     setShowAddNoteForm(!showAddNoteForm);
@@ -39,14 +51,17 @@ const Notes = () => {
         handleCloseEditModal={handleCloseEditModal}
       />
       <PageContainer>
-        <SearchNote />
+        <SearchNote debounceOnChange={debounceOnChange} />
         {showAddNoteForm ? (
           <AddNoteForm toggleForm={toggleForm} />
         ) : (
           <Button onClick={toggleForm}>Create a note</Button>
         )}
         {notes.length > 0 ? (
-          <NoteCardList handleShowEditModal={handleShowEditModal} />
+          <NoteCardList
+            handleShowEditModal={handleShowEditModal}
+            search={search}
+          />
         ) : (
           <NoNotesAlert alertMessage={alertMessage} />
         )}

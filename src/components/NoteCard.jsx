@@ -47,15 +47,15 @@ const NoteCard = ({
       <CardTextContainer>{noteText}</CardTextContainer>
       <div>
         {archivesPage ? (
-          <Button secondary="#bdbdbd" onClick={permanentlyDeleteArchivedNote}>
+          <Button secondary="#cacaca" onClick={permanentlyDeleteArchivedNote}>
             Delete
           </Button>
         ) : (
           <>
-            <Button secondary="#bdbdbd" onClick={addNoteToArchives}>
+            <Button secondary="#cacaca" onClick={addNoteToArchives}>
               Archive
             </Button>
-            <Button secondary="#bdbdbd" onClick={selectNoteToEdit}>
+            <Button secondary="#cacaca" onClick={selectNoteToEdit}>
               Edit
             </Button>
           </>

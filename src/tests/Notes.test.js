@@ -6,14 +6,28 @@ import PrivateRoute from '../components/PrivateRoute';
 
 describe('Notes', () => {
   test('renders the Notes component', () => {
+    const notesList = [
+      {
+        id: 1,
+        noteText: 'note-1',
+        color: '#112233',
+      },
+      {
+        id: 2,
+        noteText: 'note-2',
+        color: '#445566',
+      },
+    ];
+
     const initialState = {
       query: '',
       isAuthenticated: true,
-      notes: [],
+      notes: notesList,
       archives: [],
       noteToEdit: {},
     };
-    const { getByRole } = render(
+
+    const { getByRole, getAllByRole, getByText } = render(
       <GlobalContext.Provider value={initialState}>
         <BrowserRouter>
           <PrivateRoute>
@@ -26,8 +40,14 @@ describe('Notes', () => {
     expect(title).toBeInTheDocument();
     expect(title.textContent).toBe('Notes');
 
-    const btn = getByRole('button');
-    expect(btn).toBeInTheDocument();
-    expect(btn.textContent).toBe('Create a note');
+    const btn = getAllByRole('button');
+    expect(btn[0]).toBeInTheDocument();
+    expect(btn[0].textContent).toBe('Create a note');
+
+    const note1text = getByText('note-1');
+    expect(note1text.textContent).toBe('note-1');
+
+    const note2text = getByText('note-2');
+    expect(note2text.textContent).toBe('note-2');
   });
 });

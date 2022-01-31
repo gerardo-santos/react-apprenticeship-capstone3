@@ -6,7 +6,7 @@ export const Button = styled.button`
   border-radius: 4px;
   border-style: none;
   border: 2px solid ${({ secondary }) => (secondary ? '#b8b8b8' : '#ffc107')};
-  cursor: pointer;
+  cursor: ${({ disabled }) => (disabled ? 'disabled' : 'pointer')};
   margin-right: 15px;
   outline: none;
   padding: 10px 16px;

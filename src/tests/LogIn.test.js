@@ -4,9 +4,9 @@ import { BrowserRouter } from 'react-router-dom';
 import LogIn from '../pages/LogIn';
 
 describe('LogIn', () => {
-  test('renders the LogIn component', () => {
+  test('renders the title of LogIn component', () => {
     const initialState = {};
-    const { getByRole, getByPlaceholderText } = render(
+    const { getByRole } = render(
       <GlobalContext.Provider value={initialState}>
         <BrowserRouter>
           <LogIn />
@@ -16,6 +16,17 @@ describe('LogIn', () => {
     const title = getByRole('heading');
     expect(title).toBeInTheDocument();
     expect(title.textContent).toBe('Log in');
+  });
+
+  test('checks inputs on change handlers', () => {
+    const initialState = {};
+    const { getByRole, getByPlaceholderText } = render(
+      <GlobalContext.Provider value={initialState}>
+        <BrowserRouter>
+          <LogIn />
+        </BrowserRouter>
+      </GlobalContext.Provider>
+    );
     const emailInput = getByPlaceholderText('hello@test.com');
     expect(emailInput).toBeInTheDocument();
     const passwordInput = getByPlaceholderText('password123');
@@ -28,6 +39,22 @@ describe('LogIn', () => {
     expect(btn).toBeInTheDocument();
     expect(btn.textContent).toBe('Log in');
   });
+
+  test('checks form button', () => {
+    const initialState = {};
+    const { getByRole } = render(
+      <GlobalContext.Provider value={initialState}>
+        <BrowserRouter>
+          <LogIn />
+        </BrowserRouter>
+      </GlobalContext.Provider>
+    );
+
+    const btn = getByRole('button');
+    expect(btn).toBeInTheDocument();
+    expect(btn.textContent).toBe('Log in');
+  });
+
   test('Incorrect credentials', async () => {
     const initialState = {};
     const { getByRole, getByPlaceholderText } = render(

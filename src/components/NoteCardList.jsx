@@ -17,12 +17,12 @@ const NoteCardList = ({ archivesPage, handleShowEditModal, search }) => {
     );
   }, [search, notes]);
 
-  const filteredNotesOrArchivesArray = archivesPage ? archives : filteredNotes;
+  const filteredNotesOrArchivesList = archivesPage ? archives : filteredNotes;
   const alertMessage = 'There are no match results. Try another search.';
 
   return (
     <CardListContainer>
-      {filteredNotesOrArchivesArray.map((note) => (
+      {filteredNotesOrArchivesList.map((note) => (
         <NoteCard
           key={note.id}
           id={note.id}

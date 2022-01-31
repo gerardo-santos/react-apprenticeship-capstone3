@@ -1,7 +1,6 @@
 import { useState, useContext } from 'react';
 import { GlobalContext } from '../context/GlobalContext';
 import { AddNoteFormContainer } from '../components/styles/AddNoteFormContainer.styled';
-import { FormTitle } from '../components/styles/FormTitle.styled';
 import { FormLabel } from '../components/styles/FormLabel.styled';
 import { NoteInput } from './styles/NoteInput.styled';
 import { ColorInput } from './styles/ColorInput.styled';
@@ -24,11 +23,10 @@ const AddNoteForm = ({ toggleForm }) => {
 
   return (
     <AddNoteFormContainer onSubmit={handleSubmit}>
-      <FormTitle>Add a Note</FormTitle>
-      <FormLabel>Note Content</FormLabel>
       <NoteInput
         value={noteText}
         onChange={(event) => setNoteText(event.target.value)}
+        placeholder="Add note content here."
       />
       <FormLabel>Color</FormLabel>
       <br />
@@ -41,7 +39,7 @@ const AddNoteForm = ({ toggleForm }) => {
       <Button cancel="true" onClick={toggleForm} type="button">
         Cancel
       </Button>
-      <Button>Add note</Button>
+      <Button disabled={noteText.length === 0}>Add note</Button>
     </AddNoteFormContainer>
   );
 };
